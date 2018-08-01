@@ -1,0 +1,48 @@
+.game{
+
+    width: 200px;
+    height: 400px;
+    background: #f2faff;
+    border-left: 1px solid skyblue;
+    border-right: 1px solid skyblue;
+    border-bottom: 1px solid skyblue;
+    position: absolute;
+    top: 10px;
+
+}
+.next{
+    width: 80px;
+    height: 80px;
+    background: #f2faff;
+    position: absolute;
+    top: 10px;
+    left: 250px;
+    border: 1px solid skyblue;
+}
+.info{
+    position: absolute;
+    top: 100px;
+    left: 250px;
+}
+
+/* 方块样式 */
+.none,.done,.current{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    box-sizing: border-box; 
+    /* border-box时加上边框等宽高仍然保持20 */
+
+}
+
+.none{
+    background: #f2faff;
+}
+.done{
+    background: gray;
+    border: 1px solid #000;
+}
+.current{
+    background: pink;
+    border: 1px solid red;
+}
