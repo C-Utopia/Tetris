@@ -67,9 +67,17 @@ var Game = function () {
     }
     //检查点是否合法
     var check = function (pos, x, y) {
-        if (pos.x + x < 0 || pos.x + x >= gameData.length || pos.y + y < 0 || pos.y + y > gameData[0].length || gameData[pos.x + x][pos.y + y] == 1) {
+        if (
+             pos.x + x < 0 ||
+             pos.x + x >= gameData.length || 
+             pos.y + y < 0 || 
+             pos.y + y >= gameData[0].length || 
+             gameData[pos.x + x][pos.y + y] == 1
+            ) 
+        {
             return false;
-        } else {
+        } 
+        else {
             return true
         }
     }
@@ -117,20 +125,52 @@ var Game = function () {
         clearData();
         cur.down()
         setData();
-        refreshDiv(gameData, gameDivs)
+        refreshDiv(gameData, gameDivs);
+        return true;
+        } else{
+            return false
         }
     }
     //right
     var right = function(){
-
+        if(cur.canRight(isValid)) {
+            clearData();
+            cur.right()
+            setData();
+            refreshDiv(gameData, gameDivs)
+            }
+        
+    }
+    //left
+    var left = function(){
+        if(cur.canLeft(isValid)) {
+            clearData();
+            cur.left()
+            setData();
+            refreshDiv(gameData, gameDivs)
+            }
+        
+    }
+    var rotate = function(){
+        if(cur.canRotate(isValid)) {
+            clearData();
+            cur.rotate()
+            setData();
+            refreshDiv(gameData, gameDivs)
+            }
         
     }
     var init = function (doms) {
         gameDiv = doms.gameDiv
         nextDiv = doms.nextDiv
-        cur = new Square()
-        next = new Square()
 
+        var num =Math.floor(Math.random()*7+1)
+        var dir =Math.floor(Math.random()*4-1)
+        console.log(num,dir)
+       
+        cur = new SquareFactory().make(num,dir)
+        next = new SquareFactory().make(num,dir)
+       
         initDiv(gameDiv, gameData, gameDivs)
         initDiv(nextDiv, next.data, nextDivs)
 
@@ -145,4 +185,12 @@ var Game = function () {
     //导出函数
     this.init = init;
     this.down = down;
+    this.right = right;
+    this.left = left;
+    this.rotate = rotate;
+    this.fall = function(){
+        while(down()){
+            down()
+        }
+    }
 }
